@@ -26,7 +26,7 @@
     <Authors>$(Company)</Authors>
     <PackageTags>youtube video download playlist user channel closed caption tracks subtitles parse extract metadata info net core standard</PackageTags>
     <PackageProjectUrl>https://github.com/drasticactions/Drastic.YouTube</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/drastic/Drastic.YouTube/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/drasticactions/Drastic.YouTube/blob/main/CHANGELOG.md</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>favicon.png</PackageIcon>
     <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
