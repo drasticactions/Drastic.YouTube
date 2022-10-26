@@ -14,7 +14,6 @@ internal static class Http
     {
         var handler = new HttpClientHandler
         {
-            // https://github.com/Tyrrrz/Drastic.YouTube/issues/530
             UseCookies = false,
         };
 

@@ -64,14 +64,14 @@ public readonly partial struct ChannelSlug
         }
 
         // Slug
-        // Tyrrrz
+        // peepthisout
         if (IsValid(channelSlugOrUrl))
         {
             return channelSlugOrUrl;
         }
 
         // URL
-        // https://www.youtube.com/c/Tyrrrz
+        // https://www.youtube.com/c/peepthisout
         var regularMatch = Regex.Match(channelSlugOrUrl, @"youtube\..+?/c/(.*?)(?:\?|&|/|$)").Groups[1].Value;
         if (!string.IsNullOrWhiteSpace(regularMatch) && IsValid(regularMatch))
         {
