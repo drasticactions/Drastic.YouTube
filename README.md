@@ -1,12 +1,12 @@
 # Drastic.YouTube
 
-Drastic.YouTube is a fork of [Drastic.YouTube](https://github.com/Tyrrrz/Drastic.YouTube), designed for new features while keeping a similar-ish layout and API. There is no real plan for this, outside of adding new features for myself whenever I feel like it, but if there is interest in more active development of this then let me know.
+Drastic.YouTube is a fork of [YoutubeExplode](https://github.com/Tyrrrz/YoutubeExplode), designed for new features while keeping a similar-ish layout and API. There is no real plan for this, outside of adding new features for myself whenever I feel like it, but if there is interest in more active development of this then let me know.
 
 ## License
 
 Following the original library, Drastic.Youtube is licensed under LGPL3. [Tyrrrz](https://tyrrrz.me), the original developer, also included a clause regarding Russia's military aggression against Ukraine. I agree and stand by that and will be including it here:
 
->## Terms of use<sup>[[?]](https://github.com/Tyrrrz/.github/blob/master/docs/why-so-political.md)</sup>
+>## Terms of use <sup>[[?]](https://github.com/Tyrrrz/.github/blob/master/docs/why-so-political.md)</sup>
 >By using this project or its source code, for any purpose and in any shape or form, you grant your **implicit agreement** to all the following statements:
 >- You **condemn Russia and its military aggression against Ukraine**
 >- You **recognize that Russia is an occupant that unlawfully ?invaded a sovereign state**
