@@ -1,20 +1,24 @@
+// <copyright file="VideoSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System;
 using System.Threading.Tasks;
-using FluentAssertions;
-using Xunit;
-using Xunit.Abstractions;
 using Drastic.YouTube.Common;
 using Drastic.YouTube.Exceptions;
 using Drastic.YouTube.Tests.TestData;
+using FluentAssertions;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Drastic.YouTube.Tests;
 
 public class VideoSpecs
 {
-    private readonly ITestOutputHelper _testOutput;
+    private readonly ITestOutputHelper testOutput;
 
     public VideoSpecs(ITestOutputHelper testOutput) =>
-        _testOutput = testOutput;
+        this.testOutput = testOutput;
 
     [Fact]
     public async Task User_can_get_metadata_of_a_video()
@@ -65,10 +69,9 @@ public class VideoSpecs
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<VideoUnavailableException>(async () =>
-            await youtube.Videos.GetAsync(VideoIds.Private)
-        );
+            await youtube.Videos.GetAsync(VideoIds.Private));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Fact]
@@ -79,10 +82,9 @@ public class VideoSpecs
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<VideoUnavailableException>(async () =>
-            await youtube.Videos.GetAsync(VideoIds.NonExisting)
-        );
+            await youtube.Videos.GetAsync(VideoIds.NonExisting));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Theory]

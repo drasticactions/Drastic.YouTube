@@ -1,7 +1,11 @@
+// <copyright file="PlaylistIdSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System;
+using Drastic.YouTube.Playlists;
 using FluentAssertions;
 using Xunit;
-using Drastic.YouTube.Playlists;
 
 namespace Drastic.YouTube.Tests;
 

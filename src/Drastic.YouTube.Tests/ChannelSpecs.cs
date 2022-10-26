@@ -1,9 +1,13 @@
+// <copyright file="ChannelSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
-using Xunit;
 using Drastic.YouTube.Common;
 using Drastic.YouTube.Tests.TestData;
+using FluentAssertions;
+using Xunit;
 
 namespace Drastic.YouTube.Tests;
 

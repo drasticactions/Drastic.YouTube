@@ -1,7 +1,11 @@
+// <copyright file="VideoIdSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System;
+using Drastic.YouTube.Videos;
 using FluentAssertions;
 using Xunit;
-using Drastic.YouTube.Videos;
 
 namespace Drastic.YouTube.Tests;
 

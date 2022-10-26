@@ -1,3 +1,7 @@
+// <copyright file="TempOutputFixture.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System;
 using System.IO;
 
@@ -5,23 +9,22 @@ namespace Drastic.YouTube.Tests.Fixtures;
 
 public class TempOutputFixture : IDisposable
 {
+    public TempOutputFixture() => Directory.CreateDirectory(this.DirPath);
+
     public string DirPath { get; } = Path.Combine(
         Path.GetDirectoryName(typeof(TempOutputFixture).Assembly.Location) ?? Directory.GetCurrentDirectory(),
         "Temp",
-        Guid.NewGuid().ToString()
-    );
+        Guid.NewGuid().ToString());
 
-    public TempOutputFixture() => Directory.CreateDirectory(DirPath);
+    public string GetTempFilePath(string fileName) => Path.Combine(this.DirPath, fileName);
 
-    public string GetTempFilePath(string fileName) => Path.Combine(DirPath, fileName);
-
-    public string GetTempFilePath() => GetTempFilePath(Guid.NewGuid().ToString());
+    public string GetTempFilePath() => this.GetTempFilePath(Guid.NewGuid().ToString());
 
     public void Dispose()
     {
         try
         {
-            Directory.Delete(DirPath, true);
+            Directory.Delete(this.DirPath, true);
         }
         catch (DirectoryNotFoundException)
         {

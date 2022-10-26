@@ -1,7 +1,11 @@
+// <copyright file="UserNameSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System;
+using Drastic.YouTube.Channels;
 using FluentAssertions;
 using Xunit;
-using Drastic.YouTube.Channels;
 
 namespace Drastic.YouTube.Tests;
 

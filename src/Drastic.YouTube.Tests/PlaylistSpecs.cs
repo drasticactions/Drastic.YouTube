@@ -1,20 +1,24 @@
+// <copyright file="PlaylistSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
-using Xunit;
-using Xunit.Abstractions;
 using Drastic.YouTube.Common;
 using Drastic.YouTube.Exceptions;
 using Drastic.YouTube.Tests.TestData;
+using FluentAssertions;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Drastic.YouTube.Tests;
 
 public class PlaylistSpecs
 {
-    private readonly ITestOutputHelper _testOutput;
+    private readonly ITestOutputHelper testOutput;
 
     public PlaylistSpecs(ITestOutputHelper testOutput) =>
-        _testOutput = testOutput;
+        this.testOutput = testOutput;
 
     [Fact]
     public async Task User_can_get_metadata_of_a_playlist()
@@ -45,10 +49,9 @@ public class PlaylistSpecs
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<PlaylistUnavailableException>(async () =>
-            await youtube.Playlists.GetAsync(PlaylistIds.Private)
-        );
+            await youtube.Playlists.GetAsync(PlaylistIds.Private));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Fact]
@@ -59,10 +62,9 @@ public class PlaylistSpecs
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<PlaylistUnavailableException>(async () =>
-            await youtube.Playlists.GetAsync(PlaylistIds.NonExisting)
-        );
+            await youtube.Playlists.GetAsync(PlaylistIds.NonExisting));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Theory]
@@ -121,7 +123,7 @@ public class PlaylistSpecs
             "dN3gkBBffhs",
             "8Kg-8ZjgLAQ",
             "E9zfpKsw6f8",
-            "eBCw9sC5D40"
+            "eBCw9sC5D40",
         });
     }
 
@@ -146,7 +148,7 @@ public class PlaylistSpecs
             "RnGJ3KJri1g",
             "x-IR7PtA7RA",
             "N-8E9mHxDy0",
-            "5ly88Ju1N6A"
+            "5ly88Ju1N6A",
         });
     }
 

@@ -1,7 +1,11 @@
+// <copyright file="SearchSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System.Threading.Tasks;
+using Drastic.YouTube.Common;
 using FluentAssertions;
 using Xunit;
-using Drastic.YouTube.Common;
 
 namespace Drastic.YouTube.Tests;
 

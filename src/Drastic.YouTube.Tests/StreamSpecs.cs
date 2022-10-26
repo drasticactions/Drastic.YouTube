@@ -1,25 +1,29 @@
+// <copyright file="StreamSpecs.cs" company="Drastic Actions">
+// Copyright (c) Drastic Actions. All rights reserved.
+// </copyright>
+
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentAssertions;
-using Xunit;
-using Xunit.Abstractions;
 using Drastic.YouTube.Exceptions;
 using Drastic.YouTube.Tests.Fixtures;
 using Drastic.YouTube.Tests.TestData;
 using Drastic.YouTube.Videos.Streams;
+using FluentAssertions;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Drastic.YouTube.Tests;
 
 public class StreamSpecs : IClassFixture<TempOutputFixture>
 {
-    private readonly ITestOutputHelper _testOutput;
-    private readonly TempOutputFixture _tempOutputFixture;
+    private readonly ITestOutputHelper testOutput;
+    private readonly TempOutputFixture tempOutputFixture;
 
     public StreamSpecs(ITestOutputHelper testOutput, TempOutputFixture tempOutputFixture)
     {
-        _testOutput = testOutput;
-        _tempOutputFixture = tempOutputFixture;
+        this.testOutput = testOutput;
+        this.tempOutputFixture = tempOutputFixture;
     }
 
     [Fact]
@@ -40,24 +44,20 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
         manifest.GetVideoStreams().Should().Contain(s =>
             s.VideoQuality.MaxHeight == 2160 &&
             s.VideoQuality.Framerate == 60 &&
-            s.VideoQuality.IsHighDefinition
-        );
+            s.VideoQuality.IsHighDefinition);
 
         manifest.GetVideoStreams().Should().Contain(s =>
             s.VideoQuality.MaxHeight == 1080 &&
             s.VideoQuality.Framerate == 60 &&
-            s.VideoQuality.IsHighDefinition
-        );
+            s.VideoQuality.IsHighDefinition);
 
         manifest.GetVideoStreams().Should().Contain(s =>
             s.VideoQuality.MaxHeight == 720 &&
-            !s.VideoQuality.IsHighDefinition
-        );
+            !s.VideoQuality.IsHighDefinition);
 
         manifest.GetVideoStreams().Should().Contain(s =>
             s.VideoQuality.MaxHeight == 144 &&
-            !s.VideoQuality.IsHighDefinition
-        );
+            !s.VideoQuality.IsHighDefinition);
     }
 
     [Theory]
@@ -92,12 +92,11 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<VideoRequiresPurchaseException>(async () =>
-            await youtube.Videos.Streams.GetManifestAsync(VideoIds.RequiresPurchase)
-        );
+            await youtube.Videos.Streams.GetManifestAsync(VideoIds.RequiresPurchase));
 
         ex.PreviewVideoId.Value.Should().NotBeNullOrWhiteSpace();
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Fact]
@@ -108,10 +107,9 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<VideoUnavailableException>(async () =>
-            await youtube.Videos.Streams.GetManifestAsync(VideoIds.Private)
-        );
+            await youtube.Videos.Streams.GetManifestAsync(VideoIds.Private));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Fact]
@@ -122,10 +120,9 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<VideoUnavailableException>(async () =>
-            await youtube.Videos.Streams.GetManifestAsync(VideoIds.NonExisting)
-        );
+            await youtube.Videos.Streams.GetManifestAsync(VideoIds.NonExisting));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Theory]
@@ -168,7 +165,7 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
     public async Task User_can_download_a_specific_stream_from_a_video(string videoId)
     {
         // Arrange
-        var filePath = _tempOutputFixture.GetTempFilePath();
+        var filePath = this.tempOutputFixture.GetTempFilePath();
         var youtube = new YoutubeClient();
 
         // Act
@@ -187,7 +184,7 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
     public async Task User_can_download_the_highest_bitrate_stream_from_a_video()
     {
         // Arrange
-        var filePath = _tempOutputFixture.GetTempFilePath();
+        var filePath = this.tempOutputFixture.GetTempFilePath();
         var youtube = new YoutubeClient();
 
         // Act
@@ -206,7 +203,7 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
     public async Task User_can_download_the_highest_quality_stream_from_a_video()
     {
         // Arrange
-        var filePath = _tempOutputFixture.GetTempFilePath();
+        var filePath = this.tempOutputFixture.GetTempFilePath();
         var youtube = new YoutubeClient();
 
         // Act
@@ -261,10 +258,9 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<VideoUnplayableException>(async () =>
-            await youtube.Videos.Streams.GetHttpLiveStreamUrlAsync(VideoIds.RequiresPurchase)
-        );
+            await youtube.Videos.Streams.GetHttpLiveStreamUrlAsync(VideoIds.RequiresPurchase));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 
     [Fact]
@@ -275,9 +271,8 @@ public class StreamSpecs : IClassFixture<TempOutputFixture>
 
         // Act & assert
         var ex = await Assert.ThrowsAsync<DrasticYouTubeException>(async () =>
-            await youtube.Videos.Streams.GetHttpLiveStreamUrlAsync(VideoIds.Normal)
-        );
+            await youtube.Videos.Streams.GetHttpLiveStreamUrlAsync(VideoIds.Normal));
 
-        _testOutput.WriteLine(ex.Message);
+        this.testOutput.WriteLine(ex.Message);
     }
 }
