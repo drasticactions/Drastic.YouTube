@@ -87,7 +87,6 @@ public class ClosedCaptionClient
                 }
 
                 // Auto-generated captions may have invalid manifests:
-                // https://github.com/Tyrrrz/Drastic.YouTube/discussions/619
                 if (c.TryGetOffset() is not { } offset)
                 {
                     return null;
