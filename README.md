@@ -23,7 +23,7 @@ As it doesn't rely on the official API, there's also no need for an API key and 
 
 ## Install
 
-- 📦 ç: `dotnet add package Drastic.YouTube`
+- 📦 : `dotnet add package Drastic.YouTube`
 
 ## Usage
 
