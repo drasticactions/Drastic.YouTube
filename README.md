@@ -2,6 +2,9 @@
 
 Drastic.YouTube is a fork of [YoutubeExplode](https://github.com/Tyrrrz/YoutubeExplode), designed for new features while keeping a similar-ish layout and API. There is no real plan for this, outside of adding new features for myself whenever I feel like it, but if there is interest in more active development of this then let me know.
 
+[![Version](https://img.shields.io/nuget/v/Drastic.YouTube.svg)](https://nuget.org/packages/Drastic.YouTube)
+[![Downloads](https://img.shields.io/nuget/dt/Drastic.YouTube.svg)](https://nuget.org/packages/Drastic.YouTube)
+
 ## License
 
 Following the original library, Drastic.Youtube is licensed under LGPL3. [Tyrrrz](https://tyrrrz.me), the original developer, also included a clause regarding Russia's military aggression against Ukraine. I agree and stand by that and will be including it here:
