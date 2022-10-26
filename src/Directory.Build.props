@@ -24,7 +24,7 @@
 
   <PropertyGroup>
     <Authors>$(Company)</Authors>
-    <PackageTags>youtube video download playlist user channel closed caption tracks subtitles parse extract metadata info net core standard</PackageTags>
+    <PackageTags>youtube video download playlist user channel closed caption tracks subtitles parse extract metadata info net</PackageTags>
     <PackageProjectUrl>https://github.com/drasticactions/Drastic.YouTube</PackageProjectUrl>
     <PackageReleaseNotes>https://github.com/drasticactions/Drastic.YouTube/blob/main/CHANGELOG.md</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
