@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drastic.YouTube", "Drastic.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drastic.YouTube.Tests", "Drastic.YouTube.Tests\Drastic.YouTube.Tests.csproj", "{04098C8C-65BE-46AB-9A14-9FEC5F658DA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drastic.YouTube.Sample.ConsoleApp", "Drastic.YouTube.Sample.ConsoleApp\Drastic.YouTube.Sample.ConsoleApp.csproj", "{182F786B-8BF6-44C4-85BB-9A973CEDC723}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{04098C8C-65BE-46AB-9A14-9FEC5F658DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04098C8C-65BE-46AB-9A14-9FEC5F658DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04098C8C-65BE-46AB-9A14-9FEC5F658DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{182F786B-8BF6-44C4-85BB-9A973CEDC723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{182F786B-8BF6-44C4-85BB-9A973CEDC723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{182F786B-8BF6-44C4-85BB-9A973CEDC723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{182F786B-8BF6-44C4-85BB-9A973CEDC723}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

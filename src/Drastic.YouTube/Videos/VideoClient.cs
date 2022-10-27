@@ -11,6 +11,7 @@ using Drastic.YouTube.Bridge;
 using Drastic.YouTube.Common;
 using Drastic.YouTube.Exceptions;
 using Drastic.YouTube.Videos.ClosedCaptions;
+using Drastic.YouTube.Videos.Storyboard;
 using Drastic.YouTube.Videos.Streams;
 
 namespace Drastic.YouTube.Videos;
@@ -32,6 +33,7 @@ public class VideoClient
 
         this.Streams = new StreamClient(http);
         this.ClosedCaptions = new ClosedCaptionClient(http);
+        this.Storyboard = new StoryboardClient(http);
     }
 
     /// <summary>
@@ -43,6 +45,11 @@ public class VideoClient
     /// Gets operations related to closed captions of YouTube videos.
     /// </summary>
     public ClosedCaptionClient ClosedCaptions { get; }
+
+    /// <summary>
+    /// Gets operations related to storyboards of YouTube videos.
+    /// </summary>
+    public Drastic.YouTube.Videos.Storyboard.StoryboardClient Storyboard { get; }
 
     /// <summary>
     /// Gets the metadata associated with the specified video.
@@ -82,6 +89,10 @@ public class VideoClient
         var playerResponse =
             watchPage.TryGetPlayerResponse() ??
             await this.controller.GetPlayerResponseAsync(videoId, cancellationToken);
+
+        var storyboard =
+            playerResponse.TryGetVideoStoryboard() ??
+            throw new DrasticYouTubeException("Could not extract video storyboard.");
 
         var title =
             playerResponse.TryGetVideoTitle() ??
@@ -142,6 +153,7 @@ public class VideoClient
             thumbnails,
             keywords,
             new Engagement(viewCount, likeCount, dislikeCount),
-            heatmap);
+            heatmap,
+            storyboard is not null ? new Uri(storyboard) : null);
     }
 }

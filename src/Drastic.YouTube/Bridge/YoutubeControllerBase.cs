@@ -12,13 +12,13 @@ namespace Drastic.YouTube.Bridge;
 
 internal abstract class YoutubeControllerBase
 {
+    internal readonly HttpClient Http;
+
     // This key doesn't appear to change
     protected const string ApiKey = "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8";
 
-    private readonly HttpClient http;
-
     protected YoutubeControllerBase(HttpClient http) =>
-        this.http = http;
+        this.Http = http;
 
     protected async ValueTask<string> SendHttpRequestAsync(
         HttpRequestMessage request,
@@ -35,7 +35,7 @@ internal abstract class YoutubeControllerBase
         // Set required cookies
         request.Headers.Add("Cookie", "CONSENT=YES+cb; YSC=DwKYllHNwuw");
 
-        using var response = await this.http.SendAsync(
+        using var response = await this.Http.SendAsync(
             request,
             HttpCompletionOption.ResponseHeadersRead,
             cancellationToken);

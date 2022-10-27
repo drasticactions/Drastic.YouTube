@@ -80,6 +80,13 @@ internal partial class PlayerResponseExtractor
 
         Array.Empty<string>());
 
+    public string? TryGetVideoStoryboard() => Memo.Cache(this, () =>
+        this.content.
+            GetPropertyOrNull("storyboards")?
+            .GetPropertyOrNull("playerStoryboardSpecRenderer")?
+            .GetPropertyOrNull("spec")?
+            .GetStringOrNull());
+
     public string? TryGetVideoDescription() => Memo.Cache(this, () =>
         this.TryGetVideoDetails()?
             .GetPropertyOrNull("shortDescription")?
@@ -170,6 +177,12 @@ internal partial class PlayerResponseExtractor
             .ToArray() ??
 
         Array.Empty<PlayerClosedCaptionTrackInfoExtractor>());
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return this.content.ToString();
+    }
 
     private JsonElement? TryGetStreamingData() => Memo.Cache(this, () =>
     this.content.GetPropertyOrNull("streamingData"));
