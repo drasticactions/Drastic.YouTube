@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Drastic.YouTube.Videos;
 
 namespace Drastic.YouTube.Common;
@@ -28,6 +29,10 @@ public class StoryboardSet
     /// Gets the list of storyboards.
     /// </summary>
     public IReadOnlyList<Storyboard> Storyboards { get; }
+
+    /// <inheritdoc/>
+    [ExcludeFromCodeCoverage]
+    public override string ToString() => this.Storyboards.Any() ? $"Thumbnail Size ({this.Storyboards.First().Width}:{this.Storyboards.First().Height})" : "Empty Storyboard Set";
 }
 
 /// <summary>
@@ -94,10 +99,8 @@ public class Storyboard
     public int Rows { get; }
 
     /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"{this.Id}_{this.Columns}_{this.Rows}";
-    }
+    [ExcludeFromCodeCoverage]
+    public override string ToString() => $"Thumbnail Size ({this.Width}:{this.Height})";
 }
 
 /// <summary>
@@ -109,6 +112,7 @@ public class StoryboardImage
 {
     public StoryboardImage(VideoId id, byte[] image, int width, int height, int columns, int rows, double start, double duration)
     {
+        this.Id = id;
         this.Image = image;
         this.Start = start;
         this.Duration = duration;
@@ -162,6 +166,6 @@ public class StoryboardImage
     /// <inheritdoc/>
     public override string ToString()
     {
-        return $"{this.Id.ToString()}_{this.Column}_{this.Row}";
+        return $"{this.Id.ToString()}_{this.Start}_{this.Duration}_{this.Column}_{this.Row}";
     }
 }

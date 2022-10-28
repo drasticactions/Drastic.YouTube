@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.IO;
 using Drastic.YouTube.Videos;
 using Drastic.YouTube.Videos.Streams;
 using Sharprompt;
@@ -21,5 +22,27 @@ public class StoryboardDownloader
         var videoId = VideoId.Parse(id);
 
         var vid = await youtube.Videos.GetAsync(videoId);
+
+        var storyboardList = vid.Storyboards.Select(n => n.ToString()).ToArray();
+
+        var quality = Prompt.Select("Select Storyboard", storyboardList);
+
+        var storyboardSet = vid.Storyboards[Array.IndexOf(storyboardList, quality)];
+
+        Directory.CreateDirectory(videoId);
+
+        foreach (var storyboard in storyboardSet.Storyboards)
+        {
+            Console.WriteLine($"Downloading {storyboard.Url}");
+            var images = await this.youtube.Videos.Storyboard.GetStoryboardImagesAsync(storyboard);
+            foreach (var image in images)
+            {
+                var file = Path.Combine(videoId.ToString(), $"{image.ToString()}.jpg");
+                Console.WriteLine($"Writing {file}");
+                await File.WriteAllBytesAsync(file, image.Image);
+            }
+        }
+
+        Console.WriteLine("Done!");
     }
 }
