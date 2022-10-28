@@ -2,52 +2,45 @@
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 using Drastic.YouTube;
 using Drastic.YouTube.Common;
 using Drastic.YouTube.Sample.ConsoleApp;
 using Drastic.YouTube.Videos;
 using Drastic.YouTube.Videos.Streams;
+using Sharprompt;
 
 Console.Title = "Drastic.YouTube Demo";
 
-var youtube = new YoutubeClient();
+var vd = new VideoDownloader();
 
-// Get the video ID
-Console.Write("Enter YouTube video ID or URL: ");
+var sd = new StoryboardDownloader();
 
-var videoId = VideoId.Parse(Console.ReadLine() ?? string.Empty);
+var value = Prompt.Select<Menu>("Main Menu");
 
-var vid = await youtube.Videos.GetAsync(videoId);
-
-var storyboards = vid.GetVideoStoryboards();
-
-var test = storyboards.LastOrDefault();
-
-// Get available streams and choose the best muxed (audio + video) stream
-var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoId);
-
-var streamInfo = streamManifest.GetMuxedStreams().TryGetWithHighestVideoQuality();
-
-if (streamInfo is null)
+switch (value)
 {
-    // Available streams vary depending on the video and it's possible
-    // there may not be any muxed streams at all.
-    // See the readme to learn how to handle adaptive streams.
-    Console.Error.WriteLine("This video has no muxed streams.");
-    return;
+    case Menu.VideoDownload:
+        await vd.StartAsync();
+        break;
+    case Menu.StoryboardDownloader:
+        await sd.StartAsync();
+        break;
 }
 
-// Download the stream
-var fileName = $"{videoId}.{streamInfo.Container.Name}";
-
-Console.Write(
-    $"Downloading stream: {streamInfo.VideoQuality.Label} / {streamInfo.Container.Name}... ");
-
-using (var progress = new ConsoleProgress())
+public enum Menu
 {
-    await youtube.Videos.Streams.DownloadAsync(streamInfo, fileName, progress);
+    /// <summary>
+    /// Video Downloader.
+    /// </summary>
+    [Display(Name = "Video Downloader")]
+    VideoDownload,
+
+    /// <summary>
+    /// Storyboard Downloader.
+    /// </summary>
+    [Display(Name = "Storyboard Downloader")]
+    StoryboardDownloader,
 }
-
-Console.WriteLine("Done");
-
-Console.WriteLine($"Video saved to '{fileName}'");

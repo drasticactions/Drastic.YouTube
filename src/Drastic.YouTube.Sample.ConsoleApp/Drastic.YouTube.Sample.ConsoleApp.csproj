@@ -11,4 +11,10 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Drastic.YouTube\Drastic.YouTube.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Sharprompt" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Sharprompt" Version="2.4.5" />
+	</ItemGroup>
 </Project>
