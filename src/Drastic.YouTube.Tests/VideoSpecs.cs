@@ -46,6 +46,7 @@ public class VideoSpecs
         video.Engagement.DislikeCount.Should().BeGreaterOrEqualTo(0);
         video.Engagement.AverageRating.Should().BeGreaterOrEqualTo(0);
         video.Heatmap.Should().BeEmpty();
+        video.Storyboards.Should().NotBeEmpty();
     }
 
     [Fact]
