@@ -133,9 +133,14 @@ public static class VideoExtensions
             var fifth = Convert.ToInt32(specs[4]);
             var sixth = specs[5];
             var slug = specs[6];
+            if (slug == "default")
+            {
+                continue;
+            }
 
             var signPart = specs[7];
             double amountOfBoards = (double)Math.Ceiling((decimal)(third / (forth * fifth)));
+            amountOfBoards = amountOfBoards <= 0 ? 1 : amountOfBoards;
             var seconds = video.Duration?.TotalSeconds ?? 0;
             double start = 0;
             var boardDir = seconds / amountOfBoards;
@@ -152,6 +157,6 @@ public static class VideoExtensions
             set.Add(new StoryboardSet(video.Id, storyboardList));
         }
 
-        return set;
+        return set.Where(n => n.Storyboards.Any()).ToList();
     }
 }

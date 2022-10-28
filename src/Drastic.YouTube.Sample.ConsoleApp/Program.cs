@@ -12,6 +12,8 @@ using Drastic.YouTube.Videos;
 using Drastic.YouTube.Videos.Streams;
 using Sharprompt;
 
+Console.Clear();
+
 Console.Title = "Drastic.YouTube Demo";
 
 var vd = new VideoDownloader();
