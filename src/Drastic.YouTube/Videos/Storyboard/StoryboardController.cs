@@ -41,16 +41,16 @@ internal class StoryboardController : VideoController
         var col = 1;
         var row = 1;
         var start = storyboard.Start;
-        var totalTiles = (image.Width / storyboard.Width) * (image.Height / storyboard.Height);
+        var totalTiles = (image.Width / storyboard.Resolution.Width) * (image.Height / storyboard.Resolution.Height);
         var duration = storyboard.Duration / totalTiles;
         for (var i = 1; i <= totalTiles; i++)
         {
-            var x = (storyboard.Width * col) - storyboard.Width;
-            var y = (storyboard.Height * row) - storyboard.Height;
-            var thumbnail = Extract(image, new Rectangle(x, y, storyboard.Width, storyboard.Height));
+            var x = (storyboard.Resolution.Width * col) - storyboard.Resolution.Width;
+            var y = (storyboard.Resolution.Height * row) - storyboard.Resolution.Height;
+            var thumbnail = Extract(image, new Rectangle(x, y, storyboard.Resolution.Width, storyboard.Resolution.Height));
             using var ms = new MemoryStream();
             await thumbnail.SaveAsJpegAsync(ms);
-            list.Add(new StoryboardImage(storyboard.Id, ms.ToArray(), thumbnail.Width, thumbnail.Height, col, row, start, duration));
+            list.Add(new StoryboardImage(storyboard.Id, ms.ToArray(), storyboard.Resolution, col, row, start, duration));
             col += 1;
             start = start + duration;
             if (col > storyboard.Columns)

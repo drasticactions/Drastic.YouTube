@@ -32,7 +32,7 @@ public class StoryboardSet
 
     /// <inheritdoc/>
     [ExcludeFromCodeCoverage]
-    public override string ToString() => this.Storyboards.Any() ? $"Thumbnail Size ({this.Storyboards.First().Width}:{this.Storyboards.First().Height})" : "Empty Storyboard Set";
+    public override string ToString() => this.Storyboards.Any() ? $"Thumbnail Size ({this.Storyboards.First().Resolution.Width}:{this.Storyboards.First().Resolution.Height})" : "Empty Storyboard Set";
 }
 
 /// <summary>
@@ -44,14 +44,13 @@ public class StoryboardSet
 /// </summary>
 public class Storyboard
 {
-    public Storyboard(VideoId id, Uri uri, int width, int height, int columns, int rows, double start, double duration)
+    public Storyboard(VideoId id, Uri uri, Resolution resolution, int columns, int rows, double start, double duration)
     {
         this.Id = id;
         this.Url = uri;
         this.Start = start;
         this.Duration = duration;
-        this.Width = width;
-        this.Height = height;
+        this.Resolution = resolution;
         this.Columns = columns;
         this.Rows = rows;
     }
@@ -79,14 +78,9 @@ public class Storyboard
     public double Duration { get; }
 
     /// <summary>
-    /// Gets the width of each thumbnail.
+    /// Gets the resolution of the thumbnails.
     /// </summary>
-    public int Width { get; }
-
-    /// <summary>
-    /// Gets the height of each thumbnail.
-    /// </summary>
-    public int Height { get; }
+    public Resolution Resolution { get; }
 
     /// <summary>
     /// Gets the total number of columns represented in the storyboard.
@@ -100,7 +94,7 @@ public class Storyboard
 
     /// <inheritdoc/>
     [ExcludeFromCodeCoverage]
-    public override string ToString() => $"Thumbnail Size ({this.Width}:{this.Height})";
+    public override string ToString() => $"Thumbnail Size ({this.Resolution.Width}:{this.Resolution.Height})";
 }
 
 /// <summary>
@@ -110,14 +104,13 @@ public class Storyboard
 /// </summary>
 public class StoryboardImage
 {
-    public StoryboardImage(VideoId id, byte[] image, int width, int height, int columns, int rows, double start, double duration)
+    public StoryboardImage(VideoId id, byte[] image, Resolution resolution, int columns, int rows, double start, double duration)
     {
         this.Id = id;
         this.Image = image;
         this.Start = start;
         this.Duration = duration;
-        this.Width = width;
-        this.Height = height;
+        this.Resolution = resolution;
         this.Column = columns;
         this.Row = rows;
     }
@@ -144,14 +137,9 @@ public class StoryboardImage
     public double Duration { get; }
 
     /// <summary>
-    /// Gets the width of the thumbnail.
+    /// Gets the resolution of the thumbnail.
     /// </summary>
-    public int Width { get; }
-
-    /// <summary>
-    /// Gets the height of the thumbnail.
-    /// </summary>
-    public int Height { get; }
+    public Resolution Resolution { get; }
 
     /// <summary>
     /// Gets the column location of where the tile came from the base storyboard image.

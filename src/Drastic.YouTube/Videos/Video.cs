@@ -133,6 +133,8 @@ public static class VideoExtensions
             var fifth = Convert.ToInt32(specs[4]);
             var sixth = specs[5];
             var slug = specs[6];
+
+            // TODO: This should work? Not sure why it returns empty images...
             if (slug == "default")
             {
                 continue;
@@ -150,7 +152,7 @@ public static class VideoExtensions
             for (var x = 0; x < amountOfBoards; x++)
             {
                 var baseUrl = $"{string.Format(baseUrlSpec, i - 1)}M{x}{sgpPart}&sigh={signPart}";
-                storyboardList.Add(new Drastic.YouTube.Common.Storyboard(video.Id, new Uri(baseUrl), width, height, forth, fifth, start, boardDir));
+                storyboardList.Add(new Drastic.YouTube.Common.Storyboard(video.Id, new Uri(baseUrl), new Resolution(width, height), forth, fifth, start, boardDir));
                 start += boardDir;
             }
 
