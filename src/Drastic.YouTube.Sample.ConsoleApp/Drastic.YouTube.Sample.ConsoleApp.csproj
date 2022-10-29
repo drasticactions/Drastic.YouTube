@@ -13,8 +13,10 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Sharprompt" />
+	  <None Remove="System.Linq.Async" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Sharprompt" Version="2.4.5" />
+	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>
 </Project>

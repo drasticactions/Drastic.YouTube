@@ -17,12 +17,14 @@
 	    <PrivateAssets>all</PrivateAssets>
 	  </PackageReference>
 	  <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
+	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Videos\Storyboard\" />
 	  <None Remove="Magick.NET.Core" />
 	  <None Remove="Magick.NET-Q8-AnyCPU" />
 	  <None Remove="SixLabors.ImageSharp" />
+	  <None Remove="System.Linq.Async" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Videos\Storyboard\" />

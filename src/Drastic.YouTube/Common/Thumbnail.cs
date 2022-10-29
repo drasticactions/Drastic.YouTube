@@ -6,7 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Drastic.YouTube.Exceptions;
+using Drastic.YouTube.Utils;
 using Drastic.YouTube.Videos;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace Drastic.YouTube.Common;
 
@@ -19,10 +23,11 @@ public partial class Thumbnail
     /// Initializes a new instance of the <see cref="Thumbnail"/> class.
     /// Initializes an instance of <see cref="Thumbnail" />.
     /// </summary>
-    public Thumbnail(string url, Resolution resolution)
+    public Thumbnail(string url, Resolution resolution, ThumbnailType type = ThumbnailType.Normal)
     {
         this.Url = url;
         this.Resolution = resolution;
+        this.Type = type;
     }
 
     /// <summary>
@@ -31,13 +36,25 @@ public partial class Thumbnail
     public string Url { get; }
 
     /// <summary>
+    /// Gets thumbnail type.
+    /// </summary>
+    public ThumbnailType Type { get; }
+
+    /// <summary>
     /// Gets thumbnail resolution.
     /// </summary>
     public Resolution Resolution { get; }
 
+    /// <summary>
+    /// Download Thumbnail.
+    /// </summary>
+    /// <returns>Byte Array of Thumbnail.</returns>
+    public async ValueTask<byte[]> DownloadAsync()
+        => await Http.Client.GetByteArrayAsync(this.Url);
+
     /// <inheritdoc />
     [ExcludeFromCodeCoverage]
-    public override string ToString() => $"Thumbnail ({this.Resolution})";
+    public override string ToString() => $"Thumbnail ({this.Resolution}) ({this.Type}) ({this.Url})";
 }
 
 public partial class Thumbnail
@@ -70,4 +87,52 @@ public static class ThumbnailExtensions
     public static Thumbnail GetWithHighestResolution(this IEnumerable<Thumbnail> thumbnails) =>
         thumbnails.TryGetWithHighestResolution() ??
         throw new InvalidOperationException("Input thumbnail collection is empty.");
+
+    public static async ValueTask<byte[]> ToJpegAsync(this Thumbnail thumbnail)
+    {
+        using var bytes = await Http.Client.GetStreamAsync(thumbnail.Url);
+        using var image = await Image.LoadAsync(bytes);
+        using var ms = new MemoryStream();
+        await image.SaveAsJpegAsync(ms);
+        return ms.ToArray();
+    }
+
+    public static async ValueTask<byte[]> ToGifAsync(this Thumbnail thumbnail)
+    {
+        if (thumbnail.Type is ThumbnailType.Rich)
+        {
+            throw new DrasticYouTubeException("Does not support WebP Animations. Use DownloadAsync and convert it yourself.");
+        }
+
+        using var bytes = await Http.Client.GetStreamAsync(thumbnail.Url);
+        using var image = await Image.LoadAsync(bytes);
+        using var ms = new MemoryStream();
+        await image.SaveAsGifAsync(ms);
+        return ms.ToArray();
+    }
+
+    public static async ValueTask<byte[]> ToPngAsync(this Thumbnail thumbnail)
+    {
+        using var bytes = await Http.Client.GetStreamAsync(thumbnail.Url);
+        using var image = await Image.LoadAsync(bytes);
+        using var ms = new MemoryStream();
+        await image.SaveAsPngAsync(ms);
+        return ms.ToArray();
+    }
+}
+
+/// <summary>
+/// Thumbnail Type.
+/// </summary>
+public enum ThumbnailType
+{
+    /// <summary>
+    /// Normal, static, thumbnail.
+    /// </summary>
+    Normal,
+
+    /// <summary>
+    /// Animated Thumbnail.
+    /// </summary>
+    Rich,
 }

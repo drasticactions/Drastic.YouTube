@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Text.Json;
+using Drastic.YouTube.Common;
 using Drastic.YouTube.Utils;
 using Drastic.YouTube.Utils.Extensions;
 
@@ -12,7 +13,15 @@ internal class ThumbnailExtractor
 {
     private readonly JsonElement content;
 
-    public ThumbnailExtractor(JsonElement content) => this.content = content;
+    private readonly ThumbnailType type;
+
+    public ThumbnailExtractor(JsonElement content, ThumbnailType type = ThumbnailType.Normal)
+    {
+        this.content = content;
+        this.type = type;
+    }
+
+    public ThumbnailType Type => type;
 
     public string? TryGetUrl() => Memo.Cache(this, () =>
         this.content.GetPropertyOrNull("url")?.GetStringOrNull());

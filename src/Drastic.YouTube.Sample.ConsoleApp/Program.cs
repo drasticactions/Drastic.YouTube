@@ -20,6 +20,10 @@ var vd = new VideoDownloader();
 
 var sd = new StoryboardDownloader();
 
+var search = new SearchVideosCommand();
+
+var rt = new RichThumbnailDownloader();
+
 var value = Prompt.Select<Menu>("Main Menu");
 
 switch (value)
@@ -29,6 +33,12 @@ switch (value)
         break;
     case Menu.StoryboardDownloader:
         await sd.StartAsync();
+        break;
+    case Menu.SearchVideos:
+        await search.StartAsync();
+        break;
+    case Menu.DownloadRichThumbnail:
+        await rt.StartAsync();
         break;
 }
 
@@ -45,4 +55,16 @@ public enum Menu
     /// </summary>
     [Display(Name = "Storyboard Downloader")]
     StoryboardDownloader,
+
+    /// <summary>
+    /// Search Videos.
+    /// </summary>
+    [Display(Name = "Search Videos")]
+    SearchVideos,
+
+    /// <summary>
+    /// Download Rich Thumbnail.
+    /// </summary>
+    [Display(Name = "Download Rich Thumbnail")]
+    DownloadRichThumbnail,
 }

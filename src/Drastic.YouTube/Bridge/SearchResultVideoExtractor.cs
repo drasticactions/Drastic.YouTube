@@ -4,8 +4,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.Json;
+using Drastic.YouTube.Common;
 using Drastic.YouTube.Utils;
 using Drastic.YouTube.Utils.Extensions;
 
@@ -76,6 +78,18 @@ internal class SearchResultVideoExtractor
 
         Array.Empty<ThumbnailExtractor>());
 
+    public IReadOnlyList<ThumbnailExtractor> GetVideoRichThumbnails() => Memo.Cache(this, () =>
+        this.content
+            .GetPropertyOrNull("richThumbnail")?
+            .GetPropertyOrNull("movingThumbnailRenderer")?
+            .GetPropertyOrNull("movingThumbnailDetails")?
+            .GetPropertyOrNull("thumbnails")?
+            .EnumerateArrayOrNull()?
+            .Select(j => new ThumbnailExtractor(j, ThumbnailType.Rich))
+            .ToArray() ??
+
+        Array.Empty<ThumbnailExtractor>());
+
     private JsonElement? TryGetVideoAuthorDetails() => Memo.Cache(this, () =>
     this.content
         .GetPropertyOrNull("longBylineText")?
@@ -88,4 +102,8 @@ internal class SearchResultVideoExtractor
         .GetPropertyOrNull("runs")?
         .EnumerateArrayOrNull()?
         .ElementAtOrNull(0));
+
+    /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
+    public override string ToString() => this.content.ToString();
 }

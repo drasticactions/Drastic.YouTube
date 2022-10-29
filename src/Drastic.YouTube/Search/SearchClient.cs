@@ -80,13 +80,19 @@ public class SearchClient
                     videoExtractor.TryGetVideoChannelId() ??
                     throw new DrasticYouTubeException("Could not extract video channel ID.");
 
+                var richThumbnails = videoExtractor.GetVideoRichThumbnails();
+
+                var standardThumbnails = videoExtractor.GetVideoThumbnails();
+
+                var thumbnailSet = standardThumbnails.Concat(richThumbnails);
+
                 var duration = videoExtractor.TryGetVideoDuration();
 
                 var thumbnails = new List<Thumbnail>();
 
                 thumbnails.AddRange(Thumbnail.GetDefaultSet(id));
 
-                foreach (var thumbnailExtractor in videoExtractor.GetVideoThumbnails())
+                foreach (var thumbnailExtractor in thumbnailSet)
                 {
                     var thumbnailUrl =
                         thumbnailExtractor.TryGetUrl() ??
@@ -101,7 +107,7 @@ public class SearchClient
                         throw new DrasticYouTubeException("Could not extract thumbnail height.");
 
                     var thumbnailResolution = new Resolution(thumbnailWidth, thumbnailHeight);
-                    var thumbnail = new Thumbnail(thumbnailUrl, thumbnailResolution);
+                    var thumbnail = new Thumbnail(thumbnailUrl, thumbnailResolution, thumbnailExtractor.Type);
                     thumbnails.Add(thumbnail);
                 }
 
@@ -161,7 +167,7 @@ public class SearchClient
                         throw new DrasticYouTubeException("Could not extract thumbnail height.");
 
                     var thumbnailResolution = new Resolution(thumbnailWidth, thumbnailHeight);
-                    var thumbnail = new Thumbnail(thumbnailUrl, thumbnailResolution);
+                    var thumbnail = new Thumbnail(thumbnailUrl, thumbnailResolution, thumbnailExtractor.Type);
                     thumbnails.Add(thumbnail);
                 }
 
