@@ -24,6 +24,8 @@ var search = new SearchVideosCommand();
 
 var rt = new RichThumbnailDownloader();
 
+var meta = new MetadataDownloader();
+
 var value = Prompt.Select<Menu>("Main Menu");
 
 switch (value)
@@ -39,6 +41,9 @@ switch (value)
         break;
     case Menu.DownloadRichThumbnail:
         await rt.StartAsync();
+        break;
+    case Menu.DownloadMetadata:
+        await meta.StartAsync();
         break;
 }
 
@@ -67,4 +72,10 @@ public enum Menu
     /// </summary>
     [Display(Name = "Download Rich Thumbnail")]
     DownloadRichThumbnail,
+
+    /// <summary>
+    /// Download Metadata.
+    /// </summary>
+    [Display(Name = "Download Metadata")]
+    DownloadMetadata,
 }

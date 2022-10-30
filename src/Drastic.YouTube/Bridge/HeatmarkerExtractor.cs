@@ -18,7 +18,7 @@ internal class HeatmarkerExtractor
         this.content.GetPropertyOrNull("heatMarkerRenderer")?.GetPropertyOrNull("timeRangeStartMillis")?.GetInt64OrNull());
 
     public long? TryGetMarkerRangeStartMillis() => Memo.Cache(this, () =>
-        this.content.GetPropertyOrNull("heatMarkerRenderer")?.GetPropertyOrNull("timeRangeStartMillis")?.GetInt64OrNull());
+        this.content.GetPropertyOrNull("heatMarkerRenderer")?.GetPropertyOrNull("markerDurationMillis")?.GetInt64OrNull());
 
     public decimal? TryGetHeatMarkerIntensityScoreNormalized() => Memo.Cache(this, () =>
         this.content.GetPropertyOrNull("heatMarkerRenderer")?.GetPropertyOrNull("heatMarkerIntensityScoreNormalized")?.GetDecimal());
