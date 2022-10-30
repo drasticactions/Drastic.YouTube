@@ -27,7 +27,8 @@ public class Video : IVideo
         IReadOnlyList<string> keywords,
         Engagement engagement,
         IReadOnlyList<Heatmap> heatmap,
-        Uri? storyboardUri)
+        Uri? storyboardUri,
+        IReadOnlyList<ChapterDescription> chapters)
     {
         this.Id = id;
         this.Title = title;
@@ -40,6 +41,7 @@ public class Video : IVideo
         this.Engagement = engagement;
         this.Heatmap = heatmap;
         this.StoryboardSpecUri = storyboardUri;
+        this.Chapters = chapters;
     }
 
     /// <inheritdoc />
@@ -97,6 +99,11 @@ public class Video : IVideo
     /// </summary>
     public IReadOnlyList<StoryboardSet> Storyboards
         => this.GetVideoStoryboards();
+
+    /// <summary>
+    /// Gets the list of chapters.
+    /// </summary>
+    public IReadOnlyList<ChapterDescription> Chapters { get; }
 
     /// <inheritdoc />
     [ExcludeFromCodeCoverage]

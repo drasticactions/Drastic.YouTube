@@ -1,3 +1,7 @@
+### v6.6.9 (30-Oct-2022)
+- Fix parsing of `MarkerDurationMillis` in Heatmap.
+- Adds ChapterDescription support to `GetVideo` and `Video`.
+
 ### v6.6.8 (29-Oct-2022)
 - Add Rich Thumbnail support to `Video.Thumbnail`. Check the Sample app for more information on how to use it.
 

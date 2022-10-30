@@ -63,6 +63,48 @@ public class VideoClient
 
         var initialData = watchPage.TryGetInitialData();
 
+        var chapters = initialData?
+            .TryGetChapters()?
+            .Select(t =>
+            {
+                var time =
+                    t.TryGetTimeRangeStartMillis() ??
+                    throw new DrasticYouTubeException("Could not extract time range.");
+
+                var title =
+                    t.TryGetTitle() ??
+                    throw new DrasticYouTubeException("Could not extract title.");
+
+                var thumbnailExtractor =
+                    t.GetThumbnails() ??
+                    throw new DrasticYouTubeException("Could not extract thumbnails.");
+
+                var thumbnails = t
+                    .GetThumbnails()
+                        .Select(t =>
+                            {
+                                var thumbnailUrl =
+                                    t.TryGetUrl() ??
+                                    throw new DrasticYouTubeException("Could not extract thumbnail URL.");
+
+                                var thumbnailWidth =
+                                    t.TryGetWidth() ??
+                                    throw new DrasticYouTubeException("Could not extract thumbnail width.");
+
+                                var thumbnailHeight =
+                                    t.TryGetHeight() ??
+                                    throw new DrasticYouTubeException("Could not extract thumbnail height.");
+
+                                var thumbnailResolution = new Resolution(thumbnailWidth, thumbnailHeight);
+
+                                return new Thumbnail(thumbnailUrl, thumbnailResolution);
+                            })
+                    .ToList();
+
+                return new ChapterDescription(title, time, thumbnails);
+            }).ToArray()
+            ?? Array.Empty<ChapterDescription>();
+
         // Heatmap could be empty or not exist for a given video.
         // If so, set it as empty.
         // If it does exist and we can't extract, then throw.
@@ -154,6 +196,7 @@ public class VideoClient
             keywords,
             new Engagement(viewCount, likeCount, dislikeCount),
             heatmap,
-            storyboard is not null ? new Uri(storyboard) : null);
+            storyboard is not null ? new Uri(storyboard) : null,
+            chapters);
     }
 }

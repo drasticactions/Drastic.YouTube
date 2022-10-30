@@ -50,6 +50,21 @@ public class VideoSpecs
     }
 
     [Fact]
+    public async Task User_can_access_chapters()
+    {
+        // Arrange
+        var youtube = new YoutubeClient();
+
+        // Act
+        var video = await youtube.Videos.GetAsync(VideoIds.HasChapters);
+
+        // Assert
+        video.Id.Value.Should().Be(VideoIds.ContainsDashManifest);
+
+        video.Chapters.Should().NotBeEmpty();
+    }
+
+    [Fact]
     public async Task User_can_access_heatmap()
     {
         // Arrange

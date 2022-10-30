@@ -2,9 +2,6 @@
 // Copyright (c) Drastic Actions. All rights reserved.
 // </copyright>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using Drastic.YouTube.Utils;
 using Drastic.YouTube.Utils.Extensions;
@@ -17,7 +14,7 @@ internal partial class InitialDataExtractor
 
     public InitialDataExtractor(JsonElement content) => this.content = content;
 
-    public IReadOnlyList<HeatmarkerExtractor>? TryGetHeatmap() => Memo.Cache(this, () =>
+    public JsonElement.ArrayEnumerator? TryGetMarkersMap() => Memo.Cache(this, () =>
         this.content
             .GetPropertyOrNull("playerOverlays")?
             .GetPropertyOrNull("playerOverlayRenderer")?
@@ -26,7 +23,13 @@ internal partial class InitialDataExtractor
             .GetPropertyOrNull("playerBar")?
             .GetPropertyOrNull("multiMarkersPlayerBarRenderer")?
             .GetPropertyOrNull("markersMap")?
-            .EnumerateArrayOrNull()?
+            .EnumerateArrayOrNull());
+
+    public IReadOnlyList<HeatmarkerExtractor>? TryGetHeatmap() => Memo.Cache(this, () =>
+        this.TryGetMarkersMap()?
+            .Where(n =>
+                n.GetPropertyOrNull("key")
+                ?.GetStringOrNull() == "HEATSEEKER")
             .FirstOrNull()?
             .GetPropertyOrNull("value")?
             .GetPropertyOrNull("heatmap")?
@@ -35,5 +38,23 @@ internal partial class InitialDataExtractor
             .EnumerateArrayOrNull()?
             .Select(j => new HeatmarkerExtractor(j))
             .ToArray() ??
-        Array.Empty<HeatmarkerExtractor>());
+            Array.Empty<HeatmarkerExtractor>());
+
+    public IReadOnlyList<ChapterRendererExtractor>? TryGetChapters() => Memo.Cache(this, () =>
+     this.TryGetMarkersMap()?
+         .Where(n =>
+             n.GetPropertyOrNull("key")
+             ?.GetStringOrNull() == "DESCRIPTION_CHAPTERS").FirstOrNull()?
+         .GetPropertyOrNull("value")?
+         .GetPropertyOrNull("chapters")?
+         .EnumerateArrayOrNull()?
+         .Select(j => new ChapterRendererExtractor(j))
+         .ToArray() ??
+         Array.Empty<ChapterRendererExtractor>());
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return this.content.ToString();
+    }
 }
