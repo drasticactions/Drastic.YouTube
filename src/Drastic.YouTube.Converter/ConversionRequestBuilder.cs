@@ -45,16 +45,16 @@ public partial class ConversionRequestBuilder
         return this;
     }
 
-    private Container GetDefaultContainer() => new(
-        Path.GetExtension(this.outputFilePath).TrimStart('.').NullIfWhiteSpace() ??
-        "mp4");
-
     /// <summary>
     /// Sets output container.
     /// </summary>
     /// <returns></returns>
     public ConversionRequestBuilder SetContainer(string container) =>
         this.SetContainer(new Container(container));
+
+    private Container GetDefaultContainer() => new(
+        Path.GetExtension(this.outputFilePath).TrimStart('.').NullIfWhiteSpace() ??
+        "mp4");
 
     /// <summary>
     /// Sets conversion preset.
