@@ -11,7 +11,7 @@ namespace Drastic.YouTube.Sample.ConsoleApp;
 
 public class VideoDownloader
 {
-    public YoutubeClient youtube = new YoutubeClient();
+    public YoutubeClient Youtube = new YoutubeClient();
 
     public async Task StartAsync()
     {
@@ -20,10 +20,10 @@ public class VideoDownloader
 
         var videoId = VideoId.Parse(id);
 
-        var vid = await youtube.Videos.GetAsync(videoId);
+        var vid = await this.Youtube.Videos.GetAsync(videoId);
 
         // Get available streams and choose the best muxed (audio + video) stream
-        var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoId);
+        var streamManifest = await this.Youtube.Videos.Streams.GetManifestAsync(videoId);
 
         var streams = streamManifest.GetMuxedStreams().ToArray();
 
@@ -56,7 +56,7 @@ public class VideoDownloader
 
         using (var progress = new ConsoleProgress())
         {
-            await youtube.Videos.Streams.DownloadAsync(streamInfo, fileName, progress);
+            await this.Youtube.Videos.Streams.DownloadAsync(streamInfo, fileName, progress);
         }
 
         Console.WriteLine("Done");

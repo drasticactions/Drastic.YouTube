@@ -65,6 +65,7 @@ public static class YoutubeClientExtensions
     /// Get the Rich Thumbnail for a given video id.
     /// This requires using the Search command, as it is only provided in search or playlist results.
     /// </summary>
+    /// <returns></returns>
     public static async ValueTask<Common.Thumbnail> GetRichThumbnailForVideoAsync(this YoutubeClient client, VideoId videoId)
     {
         // We need to call the search API to get the results. If we give it a video id, it should return the requested

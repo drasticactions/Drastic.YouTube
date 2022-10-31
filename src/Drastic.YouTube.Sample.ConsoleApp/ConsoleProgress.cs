@@ -29,6 +29,8 @@ namespace Drastic.YouTube.Sample.ConsoleApp
 
         public void Report(double progress) => this.Write($"{progress:P1}");
 
+        public void Dispose() => this.EraseLast();
+
         private void EraseLast()
         {
             if (this.lastLength > 0)
@@ -45,7 +47,5 @@ namespace Drastic.YouTube.Sample.ConsoleApp
             this.writer.Write(text);
             this.lastLength = text.Length;
         }
-
-        public void Dispose() => this.EraseLast();
     }
 }

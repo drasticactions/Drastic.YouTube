@@ -11,7 +11,7 @@ namespace Drastic.YouTube.Sample.ConsoleApp;
 
 public class RichThumbnailDownloader
 {
-    public YoutubeClient youtube = new YoutubeClient();
+    public YoutubeClient Youtube = new YoutubeClient();
 
     public async Task StartAsync()
     {
@@ -20,7 +20,7 @@ public class RichThumbnailDownloader
 
         var videoId = VideoId.Parse(id);
 
-        var thumbnail = await this.youtube.GetRichThumbnailForVideoAsync(videoId);
+        var thumbnail = await this.Youtube.GetRichThumbnailForVideoAsync(videoId);
 
         if (thumbnail is null)
         {

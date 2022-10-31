@@ -1,6 +1,6 @@
 # Drastic.YouTube
 
-Drastic.YouTube is a fork of [YoutubeExplode](https://github.com/Tyrrrz/YoutubeExplode), designed for new features while keeping a similar-ish layout and API. There is no real plan for this, outside of adding new features for myself whenever I feel like it, but if there is interest in more active development of this then let me know.
+Drastic.YouTube is a fork of [Drastic.YouTube](https://github.com/Tyrrrz/Drastic.YouTube), designed for new features while keeping a similar-ish layout and API. There is no real plan for this, outside of adding new features for myself whenever I feel like it, but if there is interest in more active development of this then let me know.
 
 [![Version](https://img.shields.io/nuget/v/Drastic.YouTube.svg)](https://nuget.org/packages/Drastic.YouTube)
 [![Downloads](https://img.shields.io/nuget/dt/Drastic.YouTube.svg)](https://nuget.org/packages/Drastic.YouTube)

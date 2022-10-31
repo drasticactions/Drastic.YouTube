@@ -90,6 +90,10 @@ internal class SearchResultVideoExtractor
 
         Array.Empty<ThumbnailExtractor>());
 
+    /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
+    public override string ToString() => this.content.ToString();
+
     private JsonElement? TryGetVideoAuthorDetails() => Memo.Cache(this, () =>
     this.content
         .GetPropertyOrNull("longBylineText")?
@@ -102,8 +106,4 @@ internal class SearchResultVideoExtractor
         .GetPropertyOrNull("runs")?
         .EnumerateArrayOrNull()?
         .ElementAtOrNull(0));
-
-    /// <inheritdoc />
-    [ExcludeFromCodeCoverage]
-    public override string ToString() => this.content.ToString();
 }

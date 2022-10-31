@@ -11,14 +11,14 @@ namespace Drastic.YouTube.Sample.ConsoleApp;
 
 public class SearchVideosCommand
 {
-    public YoutubeClient youtube = new YoutubeClient();
+    public YoutubeClient Youtube = new YoutubeClient();
 
     public async Task StartAsync()
     {
         // Get the search param.
         var searchParam = Prompt.Input<string>("Enter search term");
 
-        var search = youtube.Search.GetVideosAsync(searchParam);
+        var search = this.Youtube.Search.GetVideosAsync(searchParam);
 
         // Get first ten videos.
         var vids = await search.Take(10).ToListAsync();

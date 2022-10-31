@@ -26,6 +26,8 @@ var rt = new RichThumbnailDownloader();
 
 var meta = new MetadataDownloader();
 
+var clip = new DownloadClip();
+
 var value = Prompt.Select<Menu>("Main Menu");
 
 switch (value)
@@ -44,6 +46,9 @@ switch (value)
         break;
     case Menu.DownloadMetadata:
         await meta.StartAsync();
+        break;
+    case Menu.DownloadClip:
+        await clip.StartAsync();
         break;
 }
 
@@ -78,4 +83,10 @@ public enum Menu
     /// </summary>
     [Display(Name = "Download Metadata")]
     DownloadMetadata,
+
+    /// <summary>
+    /// Download Clip.
+    /// </summary>
+    [Display(Name = "Download Clip")]
+    DownloadClip,
 }

@@ -21,7 +21,7 @@ internal class ThumbnailExtractor
         this.type = type;
     }
 
-    public ThumbnailType Type => type;
+    public ThumbnailType Type => this.type;
 
     public string? TryGetUrl() => Memo.Cache(this, () =>
         this.content.GetPropertyOrNull("url")?.GetStringOrNull());

@@ -14,6 +14,11 @@ namespace Drastic.YouTube.Common;
 /// </summary>
 public class StoryboardSet
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StoryboardSet"/> class.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="sb"></param>
     public StoryboardSet(VideoId id, IReadOnlyList<Storyboard> sb)
     {
         this.Id = id;
@@ -44,6 +49,16 @@ public class StoryboardSet
 /// </summary>
 public class Storyboard
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Storyboard"/> class.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="uri"></param>
+    /// <param name="resolution"></param>
+    /// <param name="columns"></param>
+    /// <param name="rows"></param>
+    /// <param name="start"></param>
+    /// <param name="duration"></param>
     public Storyboard(VideoId id, Uri uri, Resolution resolution, int columns, int rows, double start, double duration)
     {
         this.Id = id;
@@ -104,6 +119,16 @@ public class Storyboard
 /// </summary>
 public class StoryboardImage
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StoryboardImage"/> class.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="image"></param>
+    /// <param name="resolution"></param>
+    /// <param name="columns"></param>
+    /// <param name="rows"></param>
+    /// <param name="start"></param>
+    /// <param name="duration"></param>
     public StoryboardImage(VideoId id, byte[] image, Resolution resolution, int columns, int rows, double start, double duration)
     {
         this.Id = id;

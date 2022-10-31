@@ -12,7 +12,7 @@ namespace Drastic.YouTube.Sample.ConsoleApp;
 
 public class StoryboardDownloader
 {
-    public YoutubeClient youtube = new YoutubeClient();
+    public YoutubeClient Youtube = new YoutubeClient();
 
     public async Task StartAsync()
     {
@@ -21,7 +21,7 @@ public class StoryboardDownloader
 
         var videoId = VideoId.Parse(id);
 
-        var vid = await youtube.Videos.GetAsync(videoId);
+        var vid = await this.Youtube.Videos.GetAsync(videoId);
 
         var storyboardList = vid.Storyboards.Select(n => n.ToString()).ToArray();
 
@@ -34,7 +34,7 @@ public class StoryboardDownloader
         foreach (var storyboard in storyboardSet.Storyboards)
         {
             Console.WriteLine($"Downloading {storyboard.Url}");
-            var images = await this.youtube.Videos.Storyboard.GetStoryboardImagesAsync(storyboard);
+            var images = await this.Youtube.Videos.Storyboard.GetStoryboardImagesAsync(storyboard);
             foreach (var image in images)
             {
                 var file = Path.Combine(videoId.ToString(), $"{image.ToString()}.jpg");

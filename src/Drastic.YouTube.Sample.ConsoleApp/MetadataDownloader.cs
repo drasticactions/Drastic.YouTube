@@ -11,7 +11,7 @@ namespace Drastic.YouTube.Sample.ConsoleApp;
 
 public class MetadataDownloader
 {
-    public YoutubeClient youtube = new YoutubeClient();
+    public YoutubeClient Youtube = new YoutubeClient();
 
     public async Task StartAsync()
     {
@@ -20,7 +20,7 @@ public class MetadataDownloader
 
         var videoId = VideoId.Parse(id);
 
-        var video = await this.youtube.Videos.GetAsync(videoId);
+        var video = await this.Youtube.Videos.GetAsync(videoId);
 
         var jsonOptions = new JsonSerializerOptions() { WriteIndented = true };
 

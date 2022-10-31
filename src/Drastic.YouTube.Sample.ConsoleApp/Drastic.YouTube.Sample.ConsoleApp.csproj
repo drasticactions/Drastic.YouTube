@@ -9,6 +9,7 @@
 		<AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\Drastic.YouTube.Converter\Drastic.YouTube.Converter.csproj" />
 	  <ProjectReference Include="..\Drastic.YouTube\Drastic.YouTube.csproj" />
 	</ItemGroup>
 	<ItemGroup>
