@@ -20,14 +20,6 @@
 	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Videos\Storyboard\" />
-	  <None Remove="Magick.NET.Core" />
-	  <None Remove="Magick.NET-Q8-AnyCPU" />
-	  <None Remove="SixLabors.ImageSharp" />
-	  <None Remove="System.Linq.Async" />
-	  <None Remove="Drastic.ASS" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Folder Include="Videos\Storyboard\" />
 	</ItemGroup>
 </Project>
