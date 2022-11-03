@@ -13,11 +13,6 @@
 	  <ProjectReference Include="..\Drastic.YouTube\Drastic.YouTube.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Sharprompt" />
-	  <None Remove="System.Linq.Async" />
-	  <None Remove="Drastic.ASS" />
-	</ItemGroup>
-	<ItemGroup>
 	  <PackageReference Include="Sharprompt" Version="2.4.5" />
 	  <PackageReference Include="System.Linq.Async" Version="6.0.1" />
 	  <PackageReference Include="SubtitleManager" Version="1.0.1" />
