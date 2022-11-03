@@ -1,3 +1,6 @@
+### v6.6.12 (4-Nov-2022)
+- Fix subtitle encoding path for Windows. Now it should be able to accept all paths on the system.
+
 ### v6.6.11 (3-Nov-2022)
 - Add Download Clip with SRT support
 
