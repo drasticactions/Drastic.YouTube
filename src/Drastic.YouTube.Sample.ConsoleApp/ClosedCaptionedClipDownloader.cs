@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using System.Reflection;
 using System.Text.Json;
 using Drastic.YouTube.Converter;
 using Drastic.YouTube.Videos;
@@ -97,7 +98,9 @@ public class ClosedCaptionedClipDownloader
 
         File.WriteAllText($"{realName}.srt", srt.ToString());
 
-        await this.Youtube.Videos.DownloadClipAsync(fileName, streamInfo, new ClipDuration(startingTime.TotalSeconds, endingTime.TotalSeconds), $"{realName}.srt");
+        var fullPathVideo = Path.GetFullPath(fileName, Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty);
+        var fullPathSub = Path.GetFullPath($"{realName}.srt", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty);
+        await this.Youtube.Videos.DownloadClipAsync(fullPathVideo, streamInfo, new ClipDuration(startingTime.TotalSeconds, endingTime.TotalSeconds), fullPathSub);
 
         Console.WriteLine($"Wrote {fileName}");
     }

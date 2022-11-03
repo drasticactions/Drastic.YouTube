@@ -8,6 +8,7 @@ using Drastic.YouTube.Converter.Utils.Extensions;
 using Drastic.YouTube.Videos;
 using Drastic.YouTube.Videos.ClosedCaptions;
 using Drastic.YouTube.Videos.Streams;
+using System.Runtime.InteropServices;
 
 namespace Drastic.YouTube.Converter;
 
@@ -108,11 +109,6 @@ internal partial class Converter
 
         var result = this.AddClipDuration(clipDuration);
 
-        if (!string.IsNullOrEmpty(subtitlePath))
-        {
-            arguments.Add("-vf").Add("subtitles=" + subtitlePath);
-        }
-
         // Misc settings
         arguments
             .Add("-threads").Add(Environment.ProcessorCount)
@@ -122,7 +118,23 @@ internal partial class Converter
         // TODO: CLIWrap has a weird bug where it doesn't handle the URL parameter correctly
         // When passing it to the process handler. It may be a MacOS only issue though,
         // This is a cheap hack to get it working.
-        var arg = $"{result} -i \"{stream.Url.ToString()}\" {arguments.Build()} {filePath}";
+        string arg;
+
+        if (!string.IsNullOrEmpty(subtitlePath))
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // FFMpeg has weird issues with Windows encoding.
+                // Ref: https://github.com/msys2/MINGW-packages/issues/11018
+                subtitlePath = subtitlePath.Replace(@"\", @"/").Replace(@":/", @"\\:/");
+            }
+
+            arg = $"{result} -i \"{stream.Url.ToString()}\" -vf \"subtitles={subtitlePath}\" {arguments.Build()} {filePath}";
+        }
+        else
+        {
+            arg = $"{result} -i \"{stream.Url.ToString()}\" {arguments.Build()} {filePath}";
+        }
 
         await this.ffmpeg.ExecuteAsync(arg, progress, cancellationToken);
     }
