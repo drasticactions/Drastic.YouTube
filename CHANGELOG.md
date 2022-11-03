@@ -1,3 +1,10 @@
+### v6.6.11 (3-Nov-2022)
+- Add Download Clip with SRT support
+
+### v6.6.10 (31-Oct-2022)
+- Add Converter Library back.
+- Add support for clipping Youtube clips with "DownloadClipAsync"
+
 ### v6.6.9 (30-Oct-2022)
 - Fix parsing of `MarkerDurationMillis` in Heatmap.
 - Adds ChapterDescription support to `GetVideo` and `Video`.

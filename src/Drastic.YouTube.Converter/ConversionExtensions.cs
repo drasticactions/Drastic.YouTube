@@ -46,6 +46,7 @@ public static class ConversionExtensions
         string outputFilePath,
         MuxedStreamInfo stream,
         ClipDuration duration,
+        string subtitlePath = "",
         Action<ConversionRequestBuilder>? configure = null,
         IProgress<double>? progress = null,
         CancellationToken cancellationToken = default)
@@ -65,6 +66,7 @@ public static class ConversionExtensions
             request.OutputFilePath,
             stream,
             duration,
+            subtitlePath,
             progress,
             cancellationToken);
     }

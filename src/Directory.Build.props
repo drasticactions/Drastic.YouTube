@@ -4,7 +4,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>nullable</WarningsAsErrors>
-        <Version>6.6.9</Version>
+        <Version>6.6.11</Version>
         <Company>Drastic Actions</Company>
         <Copyright>Copyright (C) Drastic Actions</Copyright>
         <IsPackable>false</IsPackable>

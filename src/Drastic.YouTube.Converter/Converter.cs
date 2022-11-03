@@ -100,12 +100,18 @@ internal partial class Converter
         string filePath,
         MuxedStreamInfo stream,
         ClipDuration clipDuration,
+        string subtitlePath = "",
         IProgress<double>? progress = null,
         CancellationToken cancellationToken = default)
     {
         var arguments = new ArgumentsBuilder();
 
         var result = this.AddClipDuration(clipDuration);
+
+        if (!string.IsNullOrEmpty(subtitlePath))
+        {
+            arguments.Add("-vf").Add("subtitles=" + subtitlePath);
+        }
 
         // Misc settings
         arguments

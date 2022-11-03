@@ -28,6 +28,8 @@ var meta = new MetadataDownloader();
 
 var clip = new DownloadClip();
 
+var ccclip = new ClosedCaptionedClipDownloader();
+
 var value = Prompt.Select<Menu>("Main Menu");
 
 switch (value)
@@ -49,6 +51,9 @@ switch (value)
         break;
     case Menu.DownloadClip:
         await clip.StartAsync();
+        break;
+    case Menu.ClosedCaptionedClipDownload:
+        await ccclip.StartAsync();
         break;
 }
 
@@ -89,4 +94,10 @@ public enum Menu
     /// </summary>
     [Display(Name = "Download Clip")]
     DownloadClip,
+
+    /// <summary>
+    /// Download closed captioned Clip.
+    /// </summary>
+    [Display(Name = "Download Closed Caption Clip")]
+    ClosedCaptionedClipDownload,
 }
