@@ -67,18 +67,13 @@ public class ClosedCaptionedClipDownloader
 
         var captions = await this.Youtube.Videos.ClosedCaptions.GetAsync(selLang);
 
-        var max = captions.Captions.Count() - 1;
+        var startTime = Prompt.Input<TimeSpan>("Enter Clip Start Time", placeholder: "00:00:00");
 
-        var start = Prompt.Input<int>($"Enter start number (Max: {max}) ");
+        var ending = video.Duration?.TotalSeconds ?? 0;
 
-        if (start < 0 || start > max)
-        {
-            return;
-        }
+        var endTime = Prompt.Input<TimeSpan>("Enter Clip End Time", placeholder: "00:00:00");
 
-        var end = Prompt.Input<int>($"Enter total number of clips (Max: {max}) ");
-
-        var filteredCaptions = captions.Captions.Skip(start).Take(end);
+        var filteredCaptions = captions.Captions.Where(n => n.Offset + n.Duration >= startTime);
 
         var srt = new SrtSubtitle();
 
@@ -88,7 +83,7 @@ public class ClosedCaptionedClipDownloader
 
         foreach (var cap in filteredCaptions)
         {
-            var s = cap.Offset - startingTime;
+            var s = cap.Offset - startTime;
             var e = s + cap.Duration;
 
             srt.Lines.Add(new SrtSubtitleLine() { Start = s, End = e, Text = cap.Text });
@@ -100,7 +95,7 @@ public class ClosedCaptionedClipDownloader
 
         var fullPathVideo = Path.GetFullPath(fileName, Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty);
         var fullPathSub = Path.GetFullPath($"{realName}.srt", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty);
-        await this.Youtube.Videos.DownloadClipAsync(fullPathVideo, streamInfo, new ClipDuration(startingTime.TotalSeconds, endingTime.TotalSeconds), fullPathSub);
+        await this.Youtube.Videos.DownloadClipAsync(fullPathVideo, streamInfo, new ClipDuration(startTime.TotalSeconds, endTime.TotalSeconds), fullPathSub);
 
         Console.WriteLine($"Wrote {fileName}");
     }
